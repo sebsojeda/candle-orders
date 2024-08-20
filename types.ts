@@ -7,3 +7,8 @@ export type Fragrance = {
   updatedAt: string;
   imageUrl: string;
 };
+
+export type OrderOption = {
+  label: string;
+  value: Fragrance;
+};

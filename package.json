@@ -14,6 +14,7 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "fastify": "^4.28.1",
+    "fastify-plugin": "^4.5.1",
     "monday-sdk-js": "^0.5.5",
     "monday-ui-react-core": "^2.131.0",
     "react": "^18.3.1",
