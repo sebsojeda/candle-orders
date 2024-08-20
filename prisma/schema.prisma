@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Fragrance {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  category    Category
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  imageUrl    String?
+}
+
+enum Category {
+  Citrus
+  Floral
+  Fresh
+  Fruity
+  Herbaceous
+  Smokey
+  Woody
+}
