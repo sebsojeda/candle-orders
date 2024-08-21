@@ -46,7 +46,7 @@ function OrderForm() {
       const date = new Date()
         .toISOString()
         .replace(/.\d{3}Z$/, "")
-        .split("T");
+        .split("T")[0];
 
       const name = selectedOptions
         .map((option) => option.value.name)
@@ -59,7 +59,7 @@ function OrderForm() {
       ].join(",");
 
       await monday.api(`mutation {
-        create_item (board_id: 7248064972, group_id: "topics", item_name: "${name}", column_values: "{\\"status\\":\\"New Order\\",\\"numbers\\":${quantity},\\"date_1\\":{\\"date\\":\\"${date[0]}\\",\\"time\\":\\"${date[1]}\\"},\\"text\\":\\"${firstName}\\",\\"text6\\":\\"${lastName}\\",\\"dropdown\\":{\\"labels\\":[${categories}]}}") {
+        create_item (board_id: 7248064972, group_id: "topics", item_name: "${name}", column_values: "{\\"status\\":\\"New Order\\",\\"numbers\\":${quantity},\\"date_1\\":{\\"date\\":\\"${date}\\"},\\"text\\":\\"${firstName}\\",\\"text6\\":\\"${lastName}\\",\\"dropdown\\":{\\"labels\\":[${categories}]}}") {
           id
         }
       }`);
@@ -80,7 +80,7 @@ function OrderForm() {
 
   return (
     <>
-      <form className="p-9" onSubmit={createOrder}>
+      <form className="p-9 mx-auto max-w-4xl" onSubmit={createOrder}>
         <div className="flex flex-col gap-4">
           <div className="flex gap-2">
             <TextField
@@ -147,7 +147,12 @@ function OrderForm() {
             <Button
               type={Button.types.SUBMIT}
               loading={isSubmitting}
-              disabled={selectedOptions.length !== MAX_OPTIONS}
+              disabled={
+                selectedOptions.length !== MAX_OPTIONS ||
+                firstName === "" ||
+                lastName === "" ||
+                quantity < 1
+              }
             >
               Start Order
             </Button>
